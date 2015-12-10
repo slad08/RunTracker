@@ -18,6 +18,7 @@ import android.widget.Toast;
  */
 public class RunFragment extends Fragment {
 
+
     private BroadcastReceiver mLocationReceiver = new LocationReceiver() {
         @Override
         protected void onLocationReceived(Context context, Location loc) {
@@ -61,7 +62,7 @@ public class RunFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mRunManager.startLocationUpdates();
-                mRun = new Run();
+                mRun = mRunManager.startNewRun();
                 updateUI();
             }
         });
@@ -71,6 +72,7 @@ public class RunFragment extends Fragment {
             @Override
             public void onClick(View v){
                 mRunManager.stopLocationUpdates();
+                mRunManager.stopRun();
                 updateUI();
             }
         });

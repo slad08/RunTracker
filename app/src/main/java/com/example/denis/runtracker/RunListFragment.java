@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 /**
@@ -61,6 +62,15 @@ public class RunListFragment extends ListFragment {
             mCursor.requery();
             ((RunCursorAdapter)getListAdapter()).notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onListItemClick(ListView l,View v,int position,long id){
+        //Аргумент id  содержит идентификатор серии;
+        //CursorAdapter автоматически предоставляет эту информацию
+        Intent i=new Intent(getActivity(),RunActivity.class);
+        i.putExtra(RunActivity.EXTRA_RUN_ID,id);
+        startActivity(i);
     }
 
     private static class RunCursorAdapter extends CursorAdapter {

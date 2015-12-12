@@ -118,8 +118,28 @@ public class RunManager {
             pi.cancel();
         }
     }
-    public boolean isTrackingRun(){
+    public boolean isTrackingRun(Run mRun){
         return getLocationPendingIntent(false)!=null;
     }
 
+    public Run getRun(long id){
+        Run run=null;
+        RunDatabaseHelper.RunCursor cursor=mHelper.queryRun(id);
+        cursor.moveToFirst();
+        //Если строка присутствует, получить объект серии
+        if (!cursor.isAfterLast())
+            run=cursor.getRun();
+        cursor.close();
+        return run;
+    }
+    public Location getLastLocationForRun(long runId){
+        Location location=null;
+        RunDatabaseHelper.LocationCursor cursor=mHelper.queryLastLocationForRun(runId);
+        cursor.moveToFirst();
+        //Если набор не пуст, получить местоположение
+        if(!cursor.isAfterLast())
+            location=cursor.getLocation();
+        cursor.close();
+        return location;
+    }
 }
